@@ -1,6 +1,6 @@
-import Toolbar from '../ui/Toolbar.jsx'
-import FurniturePalette from '../ui/FurniturePalette'
-import RoomScene from '../scene/RoomScene'
+import Toolbar from '../ui/Toolbar.jsx';
+import FurniturePalette from '../ui/FurniturePalette';
+import RoomScene from '../scene/RoomScene';
 
 export default function AppLayout() {
   return (
@@ -13,5 +13,5 @@ export default function AppLayout() {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import { Box } from 'lucide-react'
+import { Box } from 'lucide-react';
 
 export default function Toolbar() {
   return (
@@ -8,5 +8,5 @@ export default function Toolbar() {
         <span className="hidden sm:inline text-slate-100">Room Designer</span>
       </div>
     </header>
-  )
+  );
 }
