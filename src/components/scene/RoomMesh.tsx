@@ -1,10 +1,15 @@
 import { useEffect, useMemo } from 'react';
 import * as THREE from 'three';
+import { roomColors } from '../../constants/colors';
 import { useRoomStore } from '../../store/roomStore';
+import { useUIStore } from '../../store/uiStore';
 
 export default function RoomMesh() {
   const room = useRoomStore((s) => s.room);
+  const theme = useUIStore((s) => s.theme);
   const { width, length, height } = room;
+
+  const colors = roomColors[theme];
   const wallThickness = 0.08;
 
   const floorEdgesGeo = useMemo(() => {
@@ -21,7 +26,7 @@ export default function RoomMesh() {
       {/* Floor */}
       <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[width, length]} />
-        <meshStandardMaterial color="#1e293b" roughness={0.8} />
+        <meshStandardMaterial color={colors.floor} roughness={0.8} />
       </mesh>
 
       {/* Floor grid */}
@@ -29,8 +34,8 @@ export default function RoomMesh() {
         args={[
           Math.max(width, length) + 4,
           (Math.max(width, length) + 4) * 2,
-          '#334155',
-          '#243040',
+          colors.gridA,
+          colors.gridB,
         ]}
         position={[0, 0.001, 0]}
       />
@@ -39,7 +44,7 @@ export default function RoomMesh() {
       <mesh receiveShadow position={[0, height / 2, -length / 2]}>
         <boxGeometry args={[width + wallThickness * 2, height, wallThickness]} />
         <meshStandardMaterial
-          color="#334155"
+          color={colors.wallFB}
           transparent
           depthWrite={false}
           opacity={0.6}
@@ -51,7 +56,7 @@ export default function RoomMesh() {
       <mesh receiveShadow position={[-width / 2, height / 2, 0]}>
         <boxGeometry args={[wallThickness, height, length]} />
         <meshStandardMaterial
-          color="#2d3f52"
+          color={colors.wallLR}
           transparent
           depthWrite={false}
           opacity={0.6}
@@ -63,7 +68,7 @@ export default function RoomMesh() {
       <mesh receiveShadow position={[width / 2, height / 2, 0]}>
         <boxGeometry args={[wallThickness, height, length]} />
         <meshStandardMaterial
-          color="#2d3f52"
+          color={colors.wallLR}
           transparent
           depthWrite={false}
           opacity={0.25}
@@ -75,7 +80,7 @@ export default function RoomMesh() {
       <mesh receiveShadow position={[0, height / 2, length / 2]}>
         <boxGeometry args={[width + wallThickness * 2, height, wallThickness]} />
         <meshStandardMaterial
-          color="#334155"
+          color={colors.wallFB}
           transparent
           depthWrite={false}
           opacity={0.15}
@@ -85,7 +90,7 @@ export default function RoomMesh() {
 
       {/* Floor boundary edges */}
       <lineSegments position={[0, 0.003, 0]} geometry={floorEdgesGeo}>
-        <lineBasicMaterial color="#475569" />
+        <lineBasicMaterial color={colors.edges} />
       </lineSegments>
     </group>
   );
