@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import type { TCameraView, TTheme } from '../types';
 
 interface IUIState {
@@ -8,19 +9,31 @@ interface IUIState {
   setTheme: (theme: TTheme) => void;
 }
 
-export const useUIStore = create<IUIState>((set) => ({
-  cameraView: '3d',
-  setCameraView: (view) => set({ cameraView: view }),
-  theme: 'dark',
-  setTheme: (theme) => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    set({ theme });
-  },
-}));
+function applyTheme(theme: TTheme) {
+  if (theme === 'dark') {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+}
 
-// Apply dark class on initial load
-document.documentElement.classList.add('dark');
+export const useUIStore = create<IUIState>()(
+  persist(
+    (set) => ({
+      cameraView: '3d',
+      setCameraView: (view) => set({ cameraView: view }),
+      theme: 'dark',
+      setTheme: (theme) => {
+        applyTheme(theme);
+        set({ theme });
+      },
+    }),
+    {
+      name: 'ui-store',
+      partialize: (state) => ({ theme: state.theme, cameraView: state.cameraView }),
+      onRehydrateStorage: () => (state) => {
+        if (state) applyTheme(state.theme);
+      },
+    }
+  )
+);
