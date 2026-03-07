@@ -3,17 +3,17 @@ import { FURNITURE_TYPES } from '../../constants/furniture';
 export default function FurniturePalette() {
   const addFurniture = (type: string) => console.log('Add furniture - ', type);
   return (
-    <aside className="w-[72px] bg-slate-900 border-r border-slate-700 flex flex-col items-center py-3 gap-1.5 overflow-y-auto shrink-0">
-      <p className="text-slate-600 text-[10px] uppercase tracking-widest mb-1 rotate-0">Add</p>
+    <aside className="w-[72px] bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-700 flex flex-col items-center py-3 gap-1.5 overflow-y-auto shrink-0">
+      <p className="text-slate-400 dark:text-slate-600 text-[10px] uppercase tracking-widest mb-1 rotate-0">Add</p>
       {Object.entries(FURNITURE_TYPES).map(([type, def]) => (
         <button
           key={type}
           onClick={() => addFurniture(type)}
           title={`Add ${def.label}`}
-          className="group w-[56px] flex flex-col items-center gap-0.5 p-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-blue-500 transition-all cursor-pointer"
+          className="group w-[56px] flex flex-col items-center gap-0.5 p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 hover:border-blue-500 transition-all cursor-pointer"
         >
           <span className="text-xl leading-none">{def.icon}</span>
-          <span className="text-[10px] text-slate-400 group-hover:text-slate-200 leading-tight text-center">
+          <span className="text-[10px] text-slate-500 group-hover:text-slate-800 dark:text-slate-400 dark:group-hover:text-slate-200 leading-tight text-center">
             {def.label}
           </span>
         </button>
