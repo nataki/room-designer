@@ -1,6 +1,7 @@
 import { Canvas } from '@react-three/fiber';
 import RoomMesh from './RoomMesh';
 import CameraRig from './CameraRig';
+import FurnitureLayer from './FurnitureLayer';
 
 export default function RoomScene() {
   return (
@@ -20,6 +21,7 @@ export default function RoomScene() {
           shadow-camera-bottom={-10}
         />
         <RoomMesh />
+        <FurnitureLayer />
         <CameraRig />
       </Canvas>
     </div>

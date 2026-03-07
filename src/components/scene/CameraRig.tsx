@@ -4,6 +4,7 @@ import { OrbitControls } from '@react-three/drei';
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 import { useUIStore } from '../../store/uiStore';
 import { useRoomStore } from '../../store/roomStore';
+import { useFurnitureStore } from '../../store/furnitureStore';
 
 const CAMERA_PRESETS = {
   '3d': { pos: [8, 8, 8], target: [0, 0, 0] },
@@ -16,7 +17,14 @@ export default function CameraRig() {
   const { camera } = useThree();
   const cameraView = useUIStore((s) => s.cameraView);
   const room = useRoomStore((s) => s.room);
+  const transforming = useFurnitureStore((s) => s.transforming);
   const controlsRef = useRef<OrbitControlsImpl>(null);
+
+  useEffect(() => {
+    if (controlsRef.current) {
+      controlsRef.current.enabled = !transforming;
+    }
+  }, [transforming]);
 
   useEffect(() => {
     const preset = CAMERA_PRESETS[cameraView];
