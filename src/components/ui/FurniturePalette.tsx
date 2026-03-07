@@ -1,9 +1,7 @@
-import { FURNITURE_TYPES } from '../../constants/furniture'
-import { useRoomStore } from '../../store/roomStore'
+import { FURNITURE_TYPES } from '../../constants/furniture';
 
 export default function FurniturePalette() {
-  const addFurniture = useRoomStore((s) => s.addFurniture)
-
+  const addFurniture = (type: string) => console.log('Add furniture - ', type);
   return (
     <aside className="w-[72px] bg-slate-900 border-r border-slate-700 flex flex-col items-center py-3 gap-1.5 overflow-y-auto shrink-0">
       <p className="text-slate-600 text-[10px] uppercase tracking-widest mb-1 rotate-0">Add</p>
@@ -21,5 +19,5 @@ export default function FurniturePalette() {
         </button>
       ))}
     </aside>
-  )
+  );
 }

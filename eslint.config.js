@@ -19,5 +19,12 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    rules: {
+      '@typescript-eslint/naming-convention': [
+        'error',
+        { selector: 'interface', format: ['PascalCase'], prefix: ['I'] },
+        { selector: 'typeAlias', format: ['PascalCase'], prefix: ['T'] },
+      ],
+    },
   },
 ]);
