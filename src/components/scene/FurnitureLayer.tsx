@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useFurnitureStore } from '../../store/furnitureStore';
+import { useRoomsStore, selectActiveRoom } from '../../store/roomsStore';
 import FurnitureItem from './FurnitureItem';
 
 export default function FurnitureLayer() {
-  const items = useFurnitureStore((s) => s.items);
-  const moveItem = useFurnitureStore((s) => s.moveItem);
-  const removeItem = useFurnitureStore((s) => s.removeItem);
+  const items = useRoomsStore((s) => selectActiveRoom(s).items);
+  const moveItem = useRoomsStore((s) => s.moveItem);
+  const removeItem = useRoomsStore((s) => s.removeItem);
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
 

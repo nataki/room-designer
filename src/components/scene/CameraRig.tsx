@@ -3,8 +3,7 @@ import { useThree } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 import { useUIStore } from '../../store/uiStore';
-import { useRoomStore } from '../../store/roomStore';
-import { useFurnitureStore } from '../../store/furnitureStore';
+import { useRoomsStore, selectActiveRoom } from '../../store/roomsStore';
 
 const CAMERA_PRESETS = {
   '3d': { pos: [8, 8, 8], target: [0, 0, 0] },
@@ -16,8 +15,8 @@ const CAMERA_PRESETS = {
 export default function CameraRig() {
   const { camera } = useThree();
   const cameraView = useUIStore((s) => s.cameraView);
-  const room = useRoomStore((s) => s.room);
-  const transforming = useFurnitureStore((s) => s.transforming);
+  const room = useRoomsStore(selectActiveRoom);
+  const transforming = useRoomsStore((s) => s.transforming);
   const controlsRef = useRef<OrbitControlsImpl>(null);
 
   useEffect(() => {

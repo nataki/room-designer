@@ -1,6 +1,7 @@
 import { Box, Sun, Moon } from 'lucide-react';
 import { useUIStore } from '../../store/uiStore';
-import { useRoomStore } from '../../store/roomStore';
+import { useRoomsStore, selectActiveRoom } from '../../store/roomsStore';
+import RoomSelector from './RoomSelector';
 
 const VIEWS = ['3d', 'top', 'front', 'side'] as const;
 const ROOM_SIZES = [
@@ -14,15 +15,19 @@ export default function Toolbar() {
   const setCameraView = useUIStore((s) => s.setCameraView);
   const theme = useUIStore((s) => s.theme);
   const setTheme = useUIStore((s) => s.setTheme);
-  const room = useRoomStore((s) => s.room);
-  const setDimensions = useRoomStore((s) => s.setDimensions);
+
+  const activeRoom = useRoomsStore(selectActiveRoom);
+  const setDimensions = useRoomsStore((s) => s.setDimensions);
 
   return (
-    <header className="flex items-center gap-4 px-4 h-12 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 shrink-0">
+    <header className="flex items-center gap-3 px-4 h-12 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 shrink-0">
+      {/* Logo */}
       <div className="flex items-center gap-2 font-semibold text-sm shrink-0">
         <Box size={18} className="text-blue-500 dark:text-blue-400" />
         <span className="hidden sm:inline text-slate-900 dark:text-slate-100">Room Designer</span>
       </div>
+
+      <RoomSelector />
 
       {/* Camera view buttons */}
       <div className="flex items-center gap-1">
@@ -51,7 +56,7 @@ export default function Toolbar() {
               min={1}
               max={20}
               step={0.5}
-              value={room[key]}
+              value={activeRoom[key]}
               onChange={(e) => setDimensions({ [key]: parseFloat(e.target.value) || 1 })}
               className="w-14 px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-900 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100 text-xs text-center focus:outline-none focus:border-blue-500"
             />
