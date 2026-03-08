@@ -1,8 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { TransformControls } from '@react-three/drei';
-import { useFurnitureStore } from '../../store/furnitureStore';
-import { useRoomStore } from '../../store/roomStore';
+import { useRoomsStore, selectActiveRoom } from '../../store/roomsStore';
 import { FURNITURE_TYPES } from '../../constants/furniture';
 import type { IFurnitureInstance } from '../../types';
 
@@ -16,8 +15,8 @@ interface IProps {
 export default function FurnitureItem({ item, isSelected, onClick, onMoveEnd }: IProps) {
   const meshRef = useRef<THREE.Mesh>(null);
   const [mesh, setMesh] = useState<THREE.Mesh | null>(null);
-  const room = useRoomStore((s) => s.room);
-  const setTransforming = useFurnitureStore((s) => s.setTransforming);
+  const room = useRoomsStore(selectActiveRoom);
+  const setTransforming = useRoomsStore((s) => s.setTransforming);
 
   const def = FURNITURE_TYPES[item.type];
 

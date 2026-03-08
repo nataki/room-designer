@@ -1,8 +1,8 @@
 import { FURNITURE_TYPES } from '../../constants/furniture';
-import { useFurnitureStore } from '../../store/furnitureStore';
+import { useRoomsStore } from '../../store/roomsStore';
 
 export default function FurniturePalette() {
-  const addFurniture = useFurnitureStore((s) => s.addItem);
+  const addFurniture = useRoomsStore((s) => s.addItem);
 
   return (
     <aside className="w-[72px] bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-700 flex flex-col items-center py-3 gap-1.5 overflow-y-auto shrink-0">

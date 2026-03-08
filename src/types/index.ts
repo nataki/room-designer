@@ -8,3 +8,12 @@ export interface IFurnitureInstance {
   type: keyof typeof FURNITURE_TYPES;
   position: [number, number, number];
 }
+
+export interface IRoom {
+  id: string;
+  name: string;
+  width: number;
+  length: number;
+  height: number;
+  items: IFurnitureInstance[];
+}

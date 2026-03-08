@@ -1,11 +1,11 @@
 import { useEffect, useMemo } from 'react';
 import * as THREE from 'three';
 import { roomColors } from '../../constants/colors';
-import { useRoomStore } from '../../store/roomStore';
+import { useRoomsStore, selectActiveRoom } from '../../store/roomsStore';
 import { useUIStore } from '../../store/uiStore';
 
 export default function RoomMesh() {
-  const room = useRoomStore((s) => s.room);
+  const room = useRoomsStore(selectActiveRoom);
   const theme = useUIStore((s) => s.theme);
   const { width, length, height } = room;
 
