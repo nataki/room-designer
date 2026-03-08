@@ -1,4 +1,5 @@
 # Room Designer
+[![Vercel Preview Deployment](https://github.com/nataki/room-designer/actions/workflows/preview.yaml/badge.svg)](https://github.com/nataki/room-designer/actions/workflows/preview.yaml)
 
 A 3D room designer built with React and Three.js. Visualize and configure room dimensions and furniture layouts in an interactive 3D viewport.
 
@@ -40,10 +41,12 @@ src/
       RoomScene       # Root Three.js canvas and scene setup
       RoomMesh        # Room geometry (walls, floor, ceiling)
       CameraRig       # Camera controls and view management
+      FurnitureItem   # Per-instance furniture renderer (type-branched)
     ui/             # 2D overlay components
       Toolbar         # Top-level action bar
       FurniturePalette  # Furniture item picker
   store/
     roomStore       # Room dimension state
+    furnitureStore  # Furniture instances and selection state
     uiStore         # Camera view and UI state
 ```
