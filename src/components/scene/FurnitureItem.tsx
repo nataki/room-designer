@@ -5,6 +5,7 @@ import { useFurnitureStore } from '../../store/furnitureStore';
 import { useRoomStore } from '../../store/roomStore';
 import { FURNITURE_TYPES } from '../../constants/furniture';
 import type { IFurnitureInstance } from '../../types';
+import ChairModel from './ChairModel';
 
 interface IProps {
   item: IFurnitureInstance;
@@ -14,8 +15,8 @@ interface IProps {
 }
 
 export default function FurnitureItem({ item, isSelected, onClick, onMoveEnd }: IProps) {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const [mesh, setMesh] = useState<THREE.Mesh | null>(null);
+  const meshRef = useRef<THREE.Object3D>(null);
+  const [mesh, setMesh] = useState<THREE.Object3D | null>(null);
   const room = useRoomStore((s) => s.room);
   const setTransforming = useFurnitureStore((s) => s.setTransforming);
 
@@ -47,25 +48,41 @@ export default function FurnitureItem({ item, isSelected, onClick, onMoveEnd }: 
           }}
         />
       )}
-      <mesh
-        ref={(m) => {
-          meshRef.current = m;
-          setMesh(m);
-        }}
-        position={[item.position[0], def.h / 2, item.position[2]]}
-        onClick={(e) => {
-          e.stopPropagation();
-          onClick();
-        }}
-        castShadow
-      >
-        <boxGeometry args={[def.w, def.h, def.d]} />
-        <meshStandardMaterial
-          color={def.color}
-          emissive={isSelected ? '#ffffff' : '#000000'}
-          emissiveIntensity={isSelected ? 0.15 : 0}
-        />
-      </mesh>
+      {item.type === 'chair' ? (
+        <group
+          ref={(g) => {
+            meshRef.current = g;
+            setMesh(g);
+          }}
+          position={[item.position[0], def.h / 2, item.position[2]]}
+          onClick={(e) => {
+            e.stopPropagation();
+            onClick();
+          }}
+        >
+          <ChairModel isSelected={isSelected} color={def.color} />
+        </group>
+      ) : (
+        <mesh
+          ref={(m) => {
+            meshRef.current = m;
+            setMesh(m);
+          }}
+          position={[item.position[0], def.h / 2, item.position[2]]}
+          onClick={(e) => {
+            e.stopPropagation();
+            onClick();
+          }}
+          castShadow
+        >
+          <boxGeometry args={[def.w, def.h, def.d]} />
+          <meshStandardMaterial
+            color={def.color}
+            emissive={isSelected ? '#ffffff' : '#000000'}
+            emissiveIntensity={isSelected ? 0.15 : 0}
+          />
+        </mesh>
+      )}
     </>
   );
 }
