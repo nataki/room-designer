@@ -6,7 +6,7 @@ export const FURNITURE_TYPES = {
     w: 1.6,
     h: 0.5,
     d: 2.0,
-    color: '#8B7355',
+    color: '#7ae5cd',
   },
   desk: {
     label: 'Desk',
@@ -38,7 +38,7 @@ export const FURNITURE_TYPES = {
     w: 1.2,
     h: 0.75,
     d: 0.8,
-    color: '#A0785A',
+    color: '#ea6806',
   },
   wardrobe: {
     label: 'Wardrobe',
@@ -46,7 +46,7 @@ export const FURNITURE_TYPES = {
     w: 1.2,
     h: 2.1,
     d: 0.6,
-    color: '#7B5E3A',
+    color: '#e8d1bb',
   },
   bookshelf: {
     label: 'Bookshelf',
@@ -54,7 +54,7 @@ export const FURNITURE_TYPES = {
     w: 0.9,
     h: 1.8,
     d: 0.3,
-    color: '#8D6E47',
+    color: '#ead9a0',
   },
   lamp: {
     label: 'Lamp',

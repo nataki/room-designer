@@ -1,14 +1,18 @@
 import { FURNITURE_TYPES } from '../../constants/furniture';
+import { useFurnitureStore } from '../../store/furnitureStore';
 
 export default function FurniturePalette() {
-  const addFurniture = (type: string) => console.log('Add furniture - ', type);
+  const addFurniture = useFurnitureStore((s) => s.addItem);
+
   return (
     <aside className="w-[72px] bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-700 flex flex-col items-center py-3 gap-1.5 overflow-y-auto shrink-0">
-      <p className="text-slate-400 dark:text-slate-600 text-[10px] uppercase tracking-widest mb-1 rotate-0">Add</p>
+      <p className="text-slate-400 dark:text-slate-600 text-[10px] uppercase tracking-widest mb-1 rotate-0">
+        Add
+      </p>
       {Object.entries(FURNITURE_TYPES).map(([type, def]) => (
         <button
           key={type}
-          onClick={() => addFurniture(type)}
+          onClick={() => addFurniture(type as keyof typeof FURNITURE_TYPES)}
           title={`Add ${def.label}`}
           className="group w-[56px] flex flex-col items-center gap-0.5 p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 hover:border-blue-500 transition-all cursor-pointer"
         >
