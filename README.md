@@ -31,22 +31,29 @@ The app runs at `http://localhost:5173` by default.
 | `npm run lint` | Run ESLint |
 | `npm run lint-fix` | Run ESLint with auto-fix |
 | `npm run format` | Format with Prettier |
+| `npm run test` | Run tests with Vitest |
 
 ## Project Structure
 
 ```
 src/
   components/
+    layout/         # App-level layout
+      AppLayout       # Shell with sidebar and main viewport
     scene/          # 3D scene components
       RoomScene       # Root Three.js canvas and scene setup
       RoomMesh        # Room geometry (walls, floor, ceiling)
       CameraRig       # Camera controls and view management
+      FurnitureLayer  # Renders all furniture items in the active room
       FurnitureItem   # Per-instance furniture renderer (type-branched)
     ui/             # 2D overlay components
       Toolbar         # Top-level action bar
       FurniturePalette  # Furniture item picker
+      RoomSelector    # Multi-room list with add/rename/delete
+  constants/        # Shared constants (room defaults, colors, furniture types)
   store/
-    roomStore       # Room dimension state
-    furnitureStore  # Furniture instances and selection state
-    uiStore         # Camera view and UI state
+    roomsStore      # Rooms list, active room, dimensions, and furniture items
+    uiStore         # Camera view and theme state
+  utils/
+    clampFurniture  # Clamps furniture positions within room bounds
 ```
