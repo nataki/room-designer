@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { TransformControls } from '@react-three/drei';
 import { useRoomsStore, selectActiveRoom } from '../../store/roomsStore';
 import { FURNITURE_TYPES } from '../../constants/furniture';
+import { clampFurniturePosition } from '../../utils/clampFurniture';
 import type { IFurnitureInstance } from '../../types';
 
 interface IProps {
@@ -23,11 +24,12 @@ export default function FurnitureItem({ item, isSelected, onClick, onMoveEnd }: 
   const handleObjectChange = useCallback(() => {
     const mesh = meshRef.current;
     if (!mesh) return;
-    const halfW = room.width / 2 - def.w / 2;
-    const halfL = room.length / 2 - def.d / 2;
-    mesh.position.x = Math.max(-halfW, Math.min(halfW, mesh.position.x));
-    mesh.position.z = Math.max(-halfL, Math.min(halfL, mesh.position.z));
-    mesh.position.y = def.h / 2;
+    const { x, y, z } = clampFurniturePosition(
+      { x: mesh.position.x, y: mesh.position.y, z: mesh.position.z },
+      room,
+      def
+    );
+    mesh.position.set(x, y, z);
   }, [room, def]);
 
   return (
@@ -51,6 +53,7 @@ export default function FurnitureItem({ item, isSelected, onClick, onMoveEnd }: 
           meshRef.current = m;
           setMesh(m);
         }}
+        // x = width axis, y lifted to floor (def.h/2), z = length axis
         position={[item.position[0], def.h / 2, item.position[2]]}
         onClick={(e) => {
           e.stopPropagation();

@@ -9,11 +9,14 @@ export interface IFurnitureInstance {
   position: [number, number, number];
 }
 
-export interface IRoom {
-  id: string;
-  name: string;
+export interface IRoomParameters {
   width: number;
   length: number;
   height: number;
+}
+
+export interface IRoom extends IRoomParameters {
+  id: string;
+  name: string;
   items: IFurnitureInstance[];
 }
